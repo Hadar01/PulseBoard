@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+    "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!-- === PulseBoard-RAG macOS LaunchAgent ===
+         Runs the heartbeat scheduler every 30 minutes in the background.
+         Install with: bash install_heartbeat.sh
+         Uninstall with: launchctl unload ~/Library/LaunchAgents/com.pulseboard.heartbeat.plist
+    -->
+
+    <key>Label</key>
+    <string>com.pulseboard.heartbeat</string>
+
+    <!-- Run the scheduler script -->
+    <key>ProgramArguments</key>
+    <array>
+        <!-- Updated by install_heartbeat.sh to use the correct Python path -->
+        <string>/usr/local/bin/python3</string>
+        <string>PULSEBOARD_DIR/scheduler.py</string>
+    </array>
+
+    <!-- Working directory — must be the project root where .env lives -->
+    <key>WorkingDirectory</key>
+    <string>PULSEBOARD_DIR</string>
+
+    <!-- Keep alive: restart automatically if the process exits -->
+    <key>KeepAlive</key>
+    <true/>
+
+    <!-- Run immediately at login -->
+    <key>RunAtLoad</key>
+    <true/>
+
+    <!-- Log stdout and stderr -->
+    <key>StandardOutPath</key>
+    <string>PULSEBOARD_DIR/logs/heartbeat.log</string>
+
+    <key>StandardErrorPath</key>
+    <string>PULSEBOARD_DIR/logs/heartbeat-error.log</string>
+
+    <!-- Throttle restart attempts — wait 30s before retrying on crash -->
+    <key>ThrottleInterval</key>
+    <integer>30</integer>
+</dict>
+</plist>
