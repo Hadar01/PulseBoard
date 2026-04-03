@@ -1,4 +1,4 @@
-# PulseBoard-RAG
+# PulseBoard-RAG (LIVO)
 
 > Intelligent project monitor with 30-minute heartbeat digests and a RAG-powered knowledge base.
 
